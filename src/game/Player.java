@@ -1,7 +1,5 @@
 package game;
 
-import java.util.ArrayList;
-
 public class Player extends Entity {
 
     public Player(int cooX, int cooY, int height, int width) {
@@ -16,10 +14,10 @@ public class Player extends Entity {
         double tempCooY = element.cooY;
         double tempHeight = element.height;
         double tempWidth = element.width;
-        double averageRadiusX = (tempWidth + this.width) / 4;
-        double averageRadiusY = (tempHeight + this.height) / 4;
-        if (!this.distanceOnAxis(element, tempCooX, this.cooX, averageRadiusX)) {
-            if (!this.distanceOnAxis(element, tempCooY, this.cooY, averageRadiusY)) {
+        double averageRadiusX = (tempWidth + this.width) / 2;
+        double averageRadiusY = (tempHeight + this.height) / 2;
+        if (this.notCollidingOnAxis(tempCooX, this.cooX, averageRadiusX)) {
+            if (this.notCollidingOnAxis(tempCooY, this.cooY, averageRadiusY)) {
                 System.out.println("true");
                 return true;
             } else {
@@ -34,12 +32,7 @@ public class Player extends Entity {
 
     }
 
-    public boolean distanceOnAxis(Entity element, double elemAxis, double playerAxis, double averageRadius) {
-        if ((Math.abs(playerAxis - elemAxis) - averageRadius) < 0) {
-            return false;
-        } else {
-            return true;
-        }
-
+    public boolean notCollidingOnAxis(double elemAxis, double playerAxis, double averageRadius) {
+        return ((Math.abs(playerAxis - elemAxis) - averageRadius) < 0);
     }
 }
